@@ -1,0 +1,13 @@
+$kind: http-request
+name: Get Single Product
+url: https://dummyjson.com/products/1
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 3943919214185999

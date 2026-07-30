@@ -1,0 +1,19 @@
+$kind: http-request
+name: Get Users Limited
+url: https://dummyjson.com/users/?limit=10&skip=5
+method: GET
+queryParams:
+  limit: "10"
+  skip: "5"
+body:
+  type: json
+  content: ""
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 2014

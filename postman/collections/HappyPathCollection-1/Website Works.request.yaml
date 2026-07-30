@@ -1,0 +1,21 @@
+$kind: http-request
+name: Website Works
+url: https://dummyjson.com/test
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response time is less than 250ms\", function () {\r
+
+      \    pm.expect(pm.response.responseTime).to.be.below(250);\r
+
+      });"
+    language: text/javascript
+order: 1000
