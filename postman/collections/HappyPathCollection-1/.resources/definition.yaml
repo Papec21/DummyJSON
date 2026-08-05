@@ -1,4 +1,9 @@
 $kind: collection
 name: HappyPathCollection
 variables:
-  authToken: ""
+  - key: authToken
+    secret: true
+    disabled: false
+  - key: productId
+    value: "10"
+    disabled: false

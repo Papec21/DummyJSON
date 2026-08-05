@@ -30,6 +30,20 @@ scripts:
 
       \r
 
-      pm.collectionVariables.set(\"authToken\", authToken);"
+      pm.collectionVariables.set(\"authToken\", authToken);\r
+
+      \r
+
+      pm.test(\"Response contains token and user profile\", function() {\r
+
+      \    const response = pm.response.json();\r
+
+      \    pm.expect(response).to.have.property(\"accessToken\");\r
+
+      \    pm.expect(response.id).to.be.a(\"number\");\r
+
+      \    pm.expect(response.username).to.be.a(\"string\");\r
+
+      })"
     language: text/javascript
 order: 4000

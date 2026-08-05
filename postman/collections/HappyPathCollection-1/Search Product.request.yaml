@@ -1,0 +1,15 @@
+$kind: http-request
+name: Search Product
+url: https://dummyjson.com/products/search?q=phone
+method: GET
+queryParams:
+  q: phone
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 4101402086013791

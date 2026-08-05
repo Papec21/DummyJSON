@@ -1,0 +1,42 @@
+$kind: http-request
+name: Add Product
+url: https://dummyjson.com/products/add
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\": {{productId}},\r
+
+    \    \"title\": \"avocado\",\r
+
+    \    \"category\": \"groceries\",\r
+
+    \    \"price\": 3.99\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response contains id, title, price and category\", function() {\r
+
+      \    const response = pm.response.json();\r
+
+      \    pm.expect(response).to.have.property(\"price\");\r
+
+      \    pm.expect(response.id).to.be.a(\"number\");\r
+
+      \    pm.expect(response.category).to.be.a(\"string\");\r
+
+      \    pm.expect(response.title).to.be.a(\"string\");\r
+
+      })"
+    language: text/javascript
+order: 4255072660182502

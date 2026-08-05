@@ -1,7 +1,7 @@
 $kind: http-request
-name: Get Single Product
+name: Delete Product
 url: https://dummyjson.com/products/{{productId}}
-method: GET
+method: DELETE
 scripts:
   - type: afterResponse
     code: "pm.test(\"Status code is 200\", function () {\r
@@ -12,12 +12,10 @@ scripts:
 
       \r
 
-      pm.test(\"Response contains the same id as the productId\", function() {\r
+      pm.test(\"Response body contains 'isDeleted': true\", function () {\r
 
-      \    const response = pm.response.json();\r
+      \    pm.expect(pm.response.json()).to.have.property('isDeleted', true);\r
 
-      \    pm.expect(response.id).to.equal(10)\r
-
-      })"
+      });"
     language: text/javascript
-order: 3943919214185999
+order: 4482093331606107
