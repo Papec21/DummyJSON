@@ -1,0 +1,28 @@
+$kind: http-request
+url: https://dummyjson.com/products/{{productId}}
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"RainbowFullOfUnicorns\",\r
+
+    \    \"price\": 1999.99\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Product title and price is updated", function () {
+          const response = pm.response.json();
+          pm.expect(response.title).to.eql("RainbowFullOfUnicorns");
+          pm.expect(response.price).to.eql(1999.99);
+      });
+    language: text/javascript
+order: 11000

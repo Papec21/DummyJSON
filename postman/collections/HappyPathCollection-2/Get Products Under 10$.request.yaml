@@ -1,0 +1,23 @@
+$kind: http-request
+url: https://dummyjson.com/products
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      const maxPrice = 10;
+      const response = pm.response.json();
+      const cheapProducts = response.products.filter((product) => product.price < maxPrice);
+
+      console.log("Products under 10$: ", cheapProducts);
+
+      pm.test("There are products under $10", function () {
+          cheapProducts.forEach(product => {
+              pm.expect(product.price).to.be.below(maxPrice);
+          });
+      });
+    language: text/javascript
+order: 7000

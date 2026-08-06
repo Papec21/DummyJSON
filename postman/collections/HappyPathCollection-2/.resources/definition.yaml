@@ -1,0 +1,6 @@
+$kind: collection
+name: HappyPathCollection
+description: ""
+variables:
+  authToken: ""
+  productId: ""

@@ -1,9 +1,17 @@
-# Use this workspace to collaborate
 workspace:
   id: 3453d39d-b495-4839-871c-efec5d7d6958
 
-# All resources in the `postman/` folder are automatically registered in Local View.
-# Point to additional files outside the `postman/` folder to register them individually. Example:
-#localResources:
-#  collections:
-#    - ../tests/E2E Test Collection/
+localResources:
+  specs:
+    - ../postman/specs/HappyPathCollection/HappyPathCollection.yaml
+    - ../postman/specs/HappyPathCollection-1/HappyPathCollection-1.json
+resourceNameMappings:
+  specs:
+    - ../postman/specs/HappyPathCollection/HappyPathCollection.yaml: HappyPathCollection
+    - ../postman/specs/HappyPathCollection-1/HappyPathCollection-1.json: HappyPathCollection
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/HappyPathCollection-2: happypathcollection-local-export

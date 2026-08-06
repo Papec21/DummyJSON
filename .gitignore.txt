@@ -1,0 +1,12 @@
+# postman internal folders
+.postman/
+postman/documents
+postman/flows
+postman/specs
+postman/mocks
+postman/environments
+
+# reports
+reports/
+
+node_modules/

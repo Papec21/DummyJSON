@@ -1,0 +1,35 @@
+$kind: http-request
+url: https://dummyjson.com/auth/login
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"emilys\",\r
+
+    \    \"password\": \"emilyspass\"\r
+
+    }"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      const authToken = pm.response.json().accessToken;
+
+      pm.collectionVariables.set("authToken", authToken);
+
+      pm.test("Response contains token and user profile", function() {
+          const response = pm.response.json();
+          pm.expect(response).to.have.property("accessToken");
+          pm.expect(response.id).to.be.a("number");
+          pm.expect(response.username).to.be.a("string");
+      })
+    language: text/javascript
+order: 4000

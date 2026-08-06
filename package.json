@@ -1,0 +1,23 @@
+{
+  "name": "dummyjson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run postman/collections/HappyPathCollection.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export reports/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Papec21/DummyJSON.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Papec21/DummyJSON/issues"
+  },
+  "homepage": "https://github.com/Papec21/DummyJSON#readme",
+  "devDependencies": {
+    "newman": "^6.2.2",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}

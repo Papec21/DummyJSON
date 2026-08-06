@@ -1,0 +1,15 @@
+$kind: http-request
+url: https://dummyjson.com/products/{{productId}}
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response body contains 'isDeleted': true", function () {
+          pm.expect(pm.response.json()).to.have.property('isDeleted', true);
+      });
+    language: text/javascript
+order: 12000

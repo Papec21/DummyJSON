@@ -1,0 +1,427 @@
+{
+  "info": {
+    "name": "HappyPathCollection",
+    "_postman_id": "happypathcollection-local-export",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "10",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Website Works",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/test",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["test"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 250ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(250);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Users Limited",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/users/?limit=10&skip=5",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["users", ""],
+          "query": [
+            { "key": "limit", "value": "10" },
+            { "key": "skip", "value": "5" }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/users",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["users"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"emilys\",\r\n    \"password\": \"emilyspass\"\r\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["auth", "login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const authToken = pm.response.json().accessToken;",
+              "",
+              "pm.collectionVariables.set(\"authToken\", authToken);",
+              "",
+              "pm.test(\"Response contains token and user profile\", function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property(\"accessToken\");",
+              "    pm.expect(response.id).to.be.a(\"number\");",
+              "    pm.expect(response.username).to.be.a(\"string\");",
+              "})"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Logged User Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{authToken}}", "type": "string" }
+          ]
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/me",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["auth", "me"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Products Under 10$",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const maxPrice = 10;",
+              "const response = pm.response.json();",
+              "const cheapProducts = response.products.filter((product) => product.price < maxPrice);",
+              "",
+              "console.log(\"Products under 10$: \", cheapProducts);",
+              "",
+              "pm.test(\"There are products under $10\", function () {",
+              "    cheapProducts.forEach(product => {",
+              "        pm.expect(product.price).to.be.below(maxPrice);",
+              "    });",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search Product",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/search?q=phone",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products", "search"],
+          "query": [
+            { "key": "q", "value": "phone" }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Single Product",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/{{productId}}",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products", "{{productId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response contains the same id as the productId\", function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.id).to.equal(10)",
+              "})"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Add Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": {{productId}},\r\n    \"title\": \"avocado\",\r\n    \"category\": \"groceries\",\r\n    \"price\": 3.99\r\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/add",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products", "add"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response contains id, title, price and category\", function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property(\"price\");",
+              "    pm.expect(response.id).to.be.a(\"number\");",
+              "    pm.expect(response.category).to.be.a(\"string\");",
+              "    pm.expect(response.title).to.be.a(\"string\");",
+              "})"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update Product",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"RainbowFullOfUnicorns\",\r\n    \"price\": 1999.99\r\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/{{productId}}",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products", "{{productId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Product title and price is updated\", function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.title).to.eql(\"RainbowFullOfUnicorns\");",
+              "    pm.expect(response.price).to.eql(1999.99);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete Product",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/{{productId}}",
+          "protocol": "https",
+          "host": ["dummyjson", "com"],
+          "path": ["products", "{{productId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response body contains 'isDeleted': true\", function () {",
+              "    pm.expect(pm.response.json()).to.have.property('isDeleted', true);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
